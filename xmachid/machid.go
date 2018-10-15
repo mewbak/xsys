@@ -42,7 +42,7 @@ func nonMacosPhysicalMACs() (string, error) {
 		macs += ni.MAC
 	}
 
-	return xmd5.Md5Str(macs)
+	return xhash.Md5Str(macs)
 }
 
 func Get() (string, error) {
@@ -60,7 +60,7 @@ func Get() (string, error) {
 	if err != nil {
 		return "", err
 	}
-	md5, err := xmd5.Md5Str(str + "salt-duck-machid")
+	md5, err := xhash.Md5Str(str + "salt-duck-machid")
 	if err != nil {
 		return "", err
 	}
