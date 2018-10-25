@@ -1,9 +1,11 @@
 package xcharset
 
 import (
-	iconv "github.com/djimenez/iconv-go"
+	"bytes"
 	"github.com/saintfish/chardet"
-	"strings"
+	"golang.org/x/text/encoding/simplifiedchinese"
+	"golang.org/x/text/transform"
+	"io/ioutil"
 )
 
 func DetectCharset(str string, isHtml bool) (string, error) {
@@ -21,6 +23,8 @@ func DetectCharset(str string, isHtml bool) (string, error) {
 	}
 }
 
+/*
+// has cross compile problem
 func ConvCharset(src string, fromCharset string, toCharset string) (string, error) {
 	fromCharset = strings.ToLower(fromCharset)
 	toCharset = strings.ToLower(toCharset)
@@ -43,4 +47,22 @@ func ConvCharsetAuto(src string, isHtml bool, toCharset string) (string, error) 
 		return "", e
 	}
 	return ConvCharset(src, fromCharset, toCharset)
+}*/
+
+func GbkToUtf8(s []byte) ([]byte, error) {
+	reader := transform.NewReader(bytes.NewReader(s), simplifiedchinese.GBK.NewDecoder())
+	d, e := ioutil.ReadAll(reader)
+	if e != nil {
+		return nil, e
+	}
+	return d, nil
+}
+
+func Utf8ToGbk(s []byte) ([]byte, error) {
+	reader := transform.NewReader(bytes.NewReader(s), simplifiedchinese.GBK.NewEncoder())
+	d, e := ioutil.ReadAll(reader)
+	if e != nil {
+		return nil, e
+	}
+	return d, nil
 }

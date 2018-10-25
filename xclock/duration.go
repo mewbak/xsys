@@ -3,6 +3,7 @@ package xclock
 import (
 	"time"
 	"math"
+	"github.com/hako/durafmt"
 )
 
 const (
@@ -16,4 +17,8 @@ const (
 func DaysBetween(since, to time.Time) (exactDays float64, biggerDays, smallerDays int) {
 	days := to.Sub(since).Hours() / float64(24)
 	return days, int(math.Ceil(days)), int(math.Floor(days))
+}
+
+func StringHumanReadable(duration time.Duration) string {
+	return durafmt.Parse(duration).String()
 }

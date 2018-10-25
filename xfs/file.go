@@ -67,7 +67,7 @@ func FileToBytes(filename string) ([]byte, error) {
 	return ioutil.ReadFile(filename)
 }
 
-func FileToJsonStruct(filename string, ptrJsonStruct interface{}) error {
+func FileToJson(filename string, ptrJsonStruct interface{}) error {
 	b, err := ioutil.ReadFile(filename)
 	if err != nil {
 		return err
@@ -85,7 +85,7 @@ func FileToJsonStruct(filename string, ptrJsonStruct interface{}) error {
 	return json.NewDecoder(file).Decode(ptrJsonStruct)*/
 }
 
-func JsonStructToFile(jsonStruct interface{}, indent bool, filename string) error {
+func JsonToFile(jsonStruct interface{}, indent bool, filename string) error {
 	if jsonStruct == nil {
 		return errors.New("Null input jsonStruct")
 	}

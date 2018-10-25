@@ -9,7 +9,7 @@ import (
 
 var wg sync.WaitGroup
 
-func tryFreq(fm *xcron.FreqLimiter, id int) {
+func tryFreq(fm *xcron.RateLimiter, id int) {
 	defer wg.Add(-1)
 	for i := 0; i < 5; i++ {
 		fm.MarkAndWaitBlock()
@@ -18,7 +18,7 @@ func tryFreq(fm *xcron.FreqLimiter, id int) {
 }
 
 func main() {
-	fm, err := xcron.NewFreqLimiter(time.Millisecond * 1000)
+	fm, err := xcron.NewRateLimiter(time.Millisecond * 1000)
 	if err != nil {
 		xlog.Erro(err)
 		return

@@ -15,6 +15,7 @@ import (
 	"strings"
 	"syscall"
 	"github.com/MrMcDuck/xsys/xcmd"
+	"github.com/MrMcDuck/xsys/xfs"
 )
 
 // on linux
@@ -106,6 +107,17 @@ func GetMyFolder() (string, error) {
 
 func GetMyFullFilename() (string, error) {
 	return osext.Executable()
+}
+
+// TODO: replace GetMyFolder GetMyFullFilename
+func SelfPath() (fullname, shortname, dir string, err error) {
+	fullname, err = osext.Executable()
+	if err != nil {
+		return "", "", "", err
+	}
+	dir = filepath.Dir(fullname)
+	shortname = xfs.FullFilenameToShort(fullname)
+	return fullname, shortname, dir, err
 }
 
 func Terminate(pid ProcId) error {

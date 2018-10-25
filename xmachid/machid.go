@@ -5,7 +5,7 @@ import (
 	"os/exec"
 	"runtime"
 	"strings"
-	"github.com/MrMcDuck/xdsa/xmd5"
+	"github.com/MrMcDuck/xdsa/xhash"
 	"github.com/MrMcDuck/xnet/xaddr"
 	"github.com/MrMcDuck/xdsa/xstring"
 )
