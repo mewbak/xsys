@@ -3,8 +3,8 @@ package main
 import (
 	"sync"
 	"time"
-	"github.com/MrMcDuck/xapputil/xlog"
-	"github.com/MrMcDuck/xsys/xcron"
+	"github.com/smcduck/xapputil/xlog"
+	"github.com/smcduck/xsys/xcron"
 )
 
 var wg sync.WaitGroup

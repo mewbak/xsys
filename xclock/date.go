@@ -4,7 +4,7 @@ import (
 	"time"
 	"fmt"
 	"github.com/pkg/errors"
-	"github.com/MrMcDuck/xdsa/xstring"
+	"github.com/smcduck/xdsa/xstring"
 )
 
 func TodayString() string {

@@ -4,7 +4,7 @@ import (
 	"log"
 	"time"
 	"fmt"
-	"github.com/MrMcDuck/xsys/xmutex"
+	"github.com/smcduck/xsys/xmutex"
 )
 
 func main() {

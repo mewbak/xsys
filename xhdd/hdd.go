@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/pkg/errors"
 	"github.com/shirou/gopsutil/disk"
-	"github.com/MrMcDuck/xdsa/xvolume"
+	"github.com/smcduck/xdsa/xvolume"
 )
 
 type PartitionInfo struct {

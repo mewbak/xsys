@@ -3,7 +3,7 @@ package xclock
 import (
 	"time"
 	"syscall"
-	"github.com/MrMcDuck/xsys/xuser"
+	"github.com/smcduck/xsys/xuser"
 	"github.com/pkg/errors"
 )
 

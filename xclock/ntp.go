@@ -3,7 +3,7 @@ package xclock
 import (
 	"github.com/beevik/ntp"
 	"time"
-	"github.com/MrMcDuck/xdsa/xstring"
+	"github.com/smcduck/xdsa/xstring"
 )
 
 // Get network time in UTC

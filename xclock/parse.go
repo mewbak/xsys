@@ -6,7 +6,7 @@ import (
 	"github.com/tkuchiki/parsetime"
 	"strings"
 	"time"
-	"github.com/MrMcDuck/xdsa/xstring"
+	"github.com/smcduck/xdsa/xstring"
 )
 
 // ParseDatetimeString可以看看https://github.com/olebedev/when，是不是值得参考或者纳入

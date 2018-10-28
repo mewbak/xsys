@@ -8,7 +8,7 @@ package xcron
 import (
 	"github.com/anacrolix/sync"
 	"time"
-	"github.com/MrMcDuck/xapputil/xerror"
+	"github.com/smcduck/xapputil/xerror"
 )
 
 type RateLimiter struct {

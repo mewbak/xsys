@@ -11,9 +11,9 @@ import (
 	"os/user"
 	"runtime"
 	"strings"
-	"github.com/MrMcDuck/xsys/xfs"
-	"github.com/MrMcDuck/xapputil/xerror"
-	"github.com/MrMcDuck/xsys/xcmd"
+	"github.com/smcduck/xsys/xfs"
+	"github.com/smcduck/xapputil/xerror"
+	"github.com/smcduck/xsys/xcmd"
 )
 
 func SysRootDir() (string, error) {

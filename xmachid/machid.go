@@ -5,9 +5,9 @@ import (
 	"os/exec"
 	"runtime"
 	"strings"
-	"github.com/MrMcDuck/xdsa/xhash"
-	"github.com/MrMcDuck/xnet/xaddr"
-	"github.com/MrMcDuck/xdsa/xstring"
+	"github.com/smcduck/xdsa/xhash"
+	"github.com/smcduck/xnet/xaddr"
+	"github.com/smcduck/xdsa/xstring"
 )
 
 // Get hardware UUID of MacOS

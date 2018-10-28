@@ -2,7 +2,7 @@ package xcounter
 
 import (
 	"testing"
-	"github.com/MrMcDuck/xdsa/xnum"
+	"github.com/smcduck/xdsa/xnum"
 )
 
 func TestStepRecycleAccumulator_Incr(t *testing.T) {

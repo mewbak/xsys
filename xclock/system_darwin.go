@@ -3,8 +3,8 @@ package xclock
 import (
 	"time"
 	"syscall"
-	"github.com/MrMcDuck/xapputil/xerror"
-	"github.com/MrMcDuck/xsys/xuser"
+	"github.com/smcduck/xapputil/xerror"
+	"github.com/smcduck/xsys/xuser"
 )
 
 func SetSystemTimeROOT(t time.Time) error {

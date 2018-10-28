@@ -2,7 +2,7 @@ package xcron
 
 import (
 	"time"
-	"github.com/MrMcDuck/xsys/xclock"
+	"github.com/smcduck/xsys/xclock"
 )
 
 type NtpCron struct {

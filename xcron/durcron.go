@@ -5,8 +5,8 @@ import (
 	"time"
 	"sync/atomic"
 	"github.com/pkg/errors"
-	"github.com/MrMcDuck/xsys/xclock"
-	"github.com/MrMcDuck/xsys/xchan"
+	"github.com/smcduck/xsys/xclock"
+	"github.com/smcduck/xsys/xchan"
 )
 
 // Equal duration cron, it's concurrent-safe.

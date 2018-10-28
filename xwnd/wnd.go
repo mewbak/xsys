@@ -2,8 +2,8 @@ package xwnd
 
 import (
 	"github.com/go-vgo/robotgo"
-	"github.com/MrMcDuck/xsys/xfs"
-	"github.com/MrMcDuck/xsys/xproc"
+	"github.com/smcduck/xsys/xfs"
+	"github.com/smcduck/xsys/xproc"
 	"github.com/pkg/errors"
 	"strings"
 )

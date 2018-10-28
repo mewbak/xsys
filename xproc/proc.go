@@ -14,8 +14,8 @@ import (
 	"strconv"
 	"strings"
 	"syscall"
-	"github.com/MrMcDuck/xsys/xcmd"
-	"github.com/MrMcDuck/xsys/xfs"
+	"github.com/smcduck/xsys/xcmd"
+	"github.com/smcduck/xsys/xfs"
 )
 
 // on linux

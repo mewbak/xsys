@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"github.com/google/uuid"
 	"os"
-	"github.com/MrMcDuck/xsys/xfs"
-	"github.com/MrMcDuck/xsys/xenvvar"
+	"github.com/smcduck/xsys/xfs"
+	"github.com/smcduck/xsys/xenvvar"
 )
 
 func IsRunAsAdmin() (bool, error) {

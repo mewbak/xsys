@@ -5,7 +5,7 @@ import (
 	"path"
 	"strings"
 	"time"
-	"github.com/MrMcDuck/xdsa/xstring"
+	"github.com/smcduck/xdsa/xstring"
 )
 
 type PathInfo struct {
