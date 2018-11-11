@@ -41,13 +41,15 @@ func ExecWait(cmdStr string, screenPrint bool) string {
 	var cmd *exec.Cmd
 
 	cmdStr = strings.TrimSpace(cmdStr)
-	if strings.Count(cmdStr, " ") > 0 { // example: ping -c 3 baidu.com
+	// FIXME 参数当中带myapp -d 'a b c'
+	/*if strings.Count(cmdStr, " ") > 0 { // example: ping -c 3 baidu.com
 		strs := strings.Split(cmdStr, " ")
 		// slice打散语法糖, 将数组对应到可变参数列表上
 		cmd = exec.Command(strs[0], strs[1:]...)
 	} else { // example: ffmpeg
 		cmd = exec.Command(cmdStr)
-	}
+	}*/
+	cmd = exec.Command(cmdStr)
 
 	if screenPrint {
 		cmd.Stdout = os.Stdout
