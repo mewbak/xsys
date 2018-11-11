@@ -18,17 +18,14 @@ func TimeToDate(tm time.Time) Date {
 }
 
 // TODO 检测2月30这样的错误
-func NewDate(year, month, day int, tz *time.Location) (Date, error) {
+func NewDate(year, month, day int, tz time.Location) (Date, error) {
 	if month <= 0 || month >= 13 {
 		return Date{}, errors.Errorf("Invalid Month input %d", month)
 	}
 	if day <= 0 || day >= 32 {
 		return Date{}, errors.Errorf("Invalid Day input %d", day)
 	}
-	if tz == nil {
-		return Date{}, errors.New("Null Timezone input")
-	}
-	return Date(time.Date(year, time.Month(month), day, 0, 0, 0, 0, tz)), nil
+	return Date(time.Date(year, time.Month(month), day, 0, 0, 0, 0, &tz)), nil
 }
 
 func (d *Date) Year() int {
