@@ -17,13 +17,25 @@ func TimeToDate(tm time.Time) Date {
 	return Date(tm)
 }
 
-// TODO 检测2月30这样的错误
-func NewDate(year, month, day int, tz time.Location) (Date, error) {
+// check if date is valid
+// invalid date example: 2018-2-30
+func DateValid(year, month, day int) bool {
 	if month <= 0 || month >= 13 {
-		return Date{}, errors.Errorf("Invalid Month input %d", month)
+		return false
 	}
 	if day <= 0 || day >= 32 {
-		return Date{}, errors.Errorf("Invalid Day input %d", day)
+		return false
+	}
+	tm := time.Date(year, time.Month(month), day, 0, 0, 0, 0, time.UTC)
+	if tm.Year() != year || tm.Month() != time.Month(month) || tm.Day() != day {
+		return false
+	}
+	return true
+}
+
+func NewDate(year, month, day int, tz time.Location) (Date, error) {
+	if !DateValid(year, month, day) {
+		return Date{}, errors.Errorf("Invalid date input %d-%d-%d", year, month, day)
 	}
 	return Date(time.Date(year, time.Month(month), day, 0, 0, 0, 0, &tz)), nil
 }

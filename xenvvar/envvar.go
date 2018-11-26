@@ -95,14 +95,22 @@ func homeDirWindows() (string, error) {
 func GetGoRoot() (string, error) {
 	// go env GOROOT可以正常返回的情况下，下述方法返回值不一定对，可能为空，所以部采用
 	//os.Getenv("GOPATH"), nil
-	goroot := xcmd.ExecWait("go env GOROOT", false) // 目前返回的结果最后会多一个换行符，是ExecWait的bug还是本来应该如此，尚不明确
+	gorootbuf, err := xcmd.ExecWaitReturn("go", "env", "GOROOT") // 目前返回的结果最后会多一个换行符，是ExecWait的bug还是本来应该如此，尚不明确
+	if err != nil {
+		return "", err
+	}
+	goroot := string(gorootbuf)
 	goroot = strings.Trim(goroot, "\r")
 	goroot = strings.Trim(goroot, "\n")
 	return goroot, nil
 }
 
 func GetGoPath() (string, error) {
-	gopath := xcmd.ExecWait("go env GOPATH", false)
+	gopathbuf, err := xcmd.ExecWaitReturn("go", "env", "GOPATH")
+	if err != nil {
+		return "", err
+	}
+	gopath := string(gopathbuf)
 	gopath = strings.Trim(gopath, "\r")
 	gopath = strings.Trim(gopath, "\n")
 	return gopath, nil

@@ -11,6 +11,7 @@ import (
 
 // ParseDatetimeString可以看看https://github.com/olebedev/when，是不是值得参考或者纳入
 
+// FIXME: 无法识别毫秒，比如"2018-11-25 13:21:37.400"
 // Parse human-readable date and time string to machine friendly values - unix timestamp
 func ParseDatetimeStringFuzz(datetimeString string) (time.Time, error) {
 	var tm time.Time

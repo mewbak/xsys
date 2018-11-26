@@ -108,7 +108,7 @@ func TestParseString(t *testing.T) {
 		} else {
 			fmt.Println(timeStr)
 			fmt.Println(tm.Format("2006-01-02 03:04:05 PM"))
-			fmt.Println("\n")
+			fmt.Println("")
 		}
 	}
 }
@@ -149,4 +149,14 @@ func TestParseDateRangeString(t *testing.T) {
 			t.Errorf("ParseDateStringFuzz(\"%s\") error, String() = \"%s\"", v, dr.String())
 		}
 	}
+}
+
+func TestParseDurationString(t *testing.T) {
+	s := "2018-11-25 13:21:37.400"
+	tm, err := ParseDatetimeStringFuzz(s)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	fmt.Println(tm.String())
 }

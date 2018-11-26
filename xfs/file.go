@@ -67,6 +67,11 @@ func FileToBytes(filename string) ([]byte, error) {
 	return ioutil.ReadFile(filename)
 }
 
+func FileToString(filename string) (string, error) {
+	b, err := ioutil.ReadFile(filename)
+	return string(b), err
+}
+
 func FileToJson(filename string, ptrJsonStruct interface{}) error {
 	b, err := ioutil.ReadFile(filename)
 	if err != nil {

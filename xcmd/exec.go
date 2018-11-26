@@ -8,10 +8,23 @@ import (
 	"runtime"
 	"strings"
 	"sync"
+	"time"
 )
 
 // sudo 下执行ExecWait或者ExecNoWait接口时会有问题
 // 频繁循环调用同一个命令可能报错"fork/exec /usr/local/bin/ffmpeg: bad file descriptor"，也可能不是频繁调用的锅
+
+type (
+	Options struct { // TODO
+		CpuLimit float64
+		Timeout  time.Duration
+		KillAfterExit bool
+	}
+
+	Cmder struct {
+		cmd *exec.Cmd
+	}
+)
 
 func ExecWaitByShell(cmdStr string, screenPrint bool) string {
 	var cmd *exec.Cmd
@@ -37,40 +50,29 @@ func ExecWaitByShell(cmdStr string, screenPrint bool) string {
 	}
 }
 
-func ExecWait(cmdStr string, screenPrint bool) string {
+// will print screen
+func ExecWaitPrintScreen(name string, arg ...string) error {
 	var cmd *exec.Cmd
 
-	cmdStr = strings.TrimSpace(cmdStr)
-	// FIXME 参数当中带myapp -d 'a b c'
-	/*if strings.Count(cmdStr, " ") > 0 { // example: ping -c 3 baidu.com
-		strs := strings.Split(cmdStr, " ")
-		// slice打散语法糖, 将数组对应到可变参数列表上
-		cmd = exec.Command(strs[0], strs[1:]...)
-	} else { // example: ffmpeg
-		cmd = exec.Command(cmdStr)
-	}*/
-	cmd = exec.Command(cmdStr)
+	cmd = exec.Command(name, arg...)
 
-	if screenPrint {
-		cmd.Stdout = os.Stdout
-		cmd.Stderr = os.Stderr
-		if err := cmd.Start(); err != nil {
-			fmt.Println(err.Error())
-		}
-		if err := cmd.Wait(); err != nil {
-			fmt.Println(err.Error())
-		}
-		return ""
-	} else {
-		out, _ := cmd.CombinedOutput()
-		return string(out)
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	if err := cmd.Start(); err != nil {
+		return err
 	}
+	if err := cmd.Wait(); err != nil {
+		return err
+	}
+	return nil
 }
 
-type Cmder struct {
-	cmd *exec.Cmd
+// will not print screen
+func ExecWaitReturn(name string, arg ...string) ([]byte, error) {
+	return exec.Command(name, arg...).CombinedOutput()
 }
 
+/*
 func ExecNowaitByShell(cmdStr string, screenPrint bool) *Cmder {
 	var cmder Cmder
 	if runtime.GOOS == "windows" {
@@ -86,7 +88,7 @@ func ExecNowaitByShell(cmdStr string, screenPrint bool) *Cmder {
 		}
 	}
 	return &cmder
-}
+}*/
 
 func ExecNowait(cmdStr string, screenPrint bool) *Cmder {
 	var cmder Cmder

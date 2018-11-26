@@ -8,14 +8,14 @@ import (
 	"github.com/kardianos/osext"
 	"github.com/pkg/errors"
 	"github.com/shirou/gopsutil/process"
+	"github.com/smcduck/xsys/xcmd"
+	"github.com/smcduck/xsys/xfs"
 	"os"
 	"path/filepath"
 	"runtime"
 	"strconv"
 	"strings"
 	"syscall"
-	"github.com/smcduck/xsys/xcmd"
-	"github.com/smcduck/xsys/xfs"
 )
 
 // on linux
@@ -182,13 +182,15 @@ func GetProcInfo(pid ProcId) (*ProcInfo, error) {
 	cmdline, err := proc.Cmdline()
 	pi.Cmdline = cmdline
 	if runtime.GOOS == "darwin" {
+
 		pi.Filename = cmdlineToFilename(cmdline)
 		// mac下用cmdlineToFilename有个bug，就是使用./的方式执行的程序，在mac下得到的command不包含完整路径
 		// 执行./goecho的时候，查询到的完整路径Filename是"./goecho"，不是完整路径
 		// 所以使用了下述解决办法
 		if len(pi.Filename) == 0 || strings.Index(pi.Filename, "./") == 0 {
-			cmdstr := "lsof -p " + strconv.FormatInt(int64(pid), 10) + " | grep 'txt.*" + pi.Name + "'"
-			result := xcmd.ExecWait(cmdstr, false)
+			// must ignore error ("exit status 1"), it's not really an error
+			resultbuf, _ := xcmd.ExecWaitReturn("lsof", "-p", strconv.FormatInt(int64(pid), 10), "|", "grep", "'txt.*" + pi.Name + "'")
+			result := string(resultbuf)
 			result = strings.Trim(result, "\r")
 			result = strings.Trim(result, "\n")
 			if len(result) > 0 {

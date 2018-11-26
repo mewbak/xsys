@@ -1,13 +1,28 @@
 package xclock
 
 import (
+	"encoding/json"
 	"testing"
 	"time"
-	"encoding/json"
 )
 
+func TestDateValid(t *testing.T) {
+	if DateValid(2018, 2, 31) {
+		t.Error("DateValid() error")
+		return
+	}
+	if DateValid(2018, 11, 31) {
+		t.Error("DateValid() error")
+		return
+	}
+	if !DateValid(2018, 1, 31) {
+		t.Error("DateValid() error")
+		return
+	}
+}
+
 func TestDate_StringYYYYMMDD(t *testing.T) {
-	date, err := NewDate(2018, 3, 8, time.UTC)
+	date, err := NewDate(2018, 3, 8, *time.UTC)
 	if err != nil {
 		t.Error(err)
 		return
