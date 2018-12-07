@@ -6,14 +6,14 @@ import (
 	"bytes"
 	"github.com/getlantern/appdir"
 	"github.com/pkg/errors"
+	"github.com/smcduck/xapputil/xerror"
+	"github.com/smcduck/xsys/xcmd"
 	"os"
 	"os/exec"
 	"os/user"
+	"path/filepath"
 	"runtime"
 	"strings"
-	"github.com/smcduck/xsys/xfs"
-	"github.com/smcduck/xapputil/xerror"
-	"github.com/smcduck/xsys/xcmd"
 )
 
 func SysRootDir() (string, error) {
@@ -30,10 +30,13 @@ func GetSharedUserDir() (string, error) {
 		return "", err
 	}
 	if runtime.GOOS == "windows" {
-		return root + "Users" + xfs.DirSlash() + "Public", nil
+		return filepath.Join(root, "Users", "Public"), nil
 	}
 	if runtime.GOOS == "darwin" {
-		return root + "Users" + xfs.DirSlash() + "Shared", nil
+		return filepath.Join(root, "Users", "Shared"), nil
+	}
+	if runtime.GOOS == "linux" {
+		return filepath.Join(root, "root"), nil
 	}
 	return "", xerror.New("GetSharedUserDir() doesn't support %s", runtime.GOOS)
 }

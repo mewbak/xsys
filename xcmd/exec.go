@@ -90,18 +90,12 @@ func ExecNowaitByShell(cmdStr string, screenPrint bool) *Cmder {
 	return &cmder
 }*/
 
-func ExecNowait(cmdStr string, screenPrint bool) *Cmder {
+func ExecNowait(screenPrint bool, cmd string, arg ...string) *Cmder {
 	var cmder Cmder
+	cmder.cmd = exec.Command(cmd, arg...)
 
-	cmdStr = strings.TrimSpace(cmdStr)
-	if strings.Count(cmdStr, " ") > 0 { // example: ping -c 3 baidu.com
-		strs := strings.Split(cmdStr, " ")
-		// slice打散语法糖, 将数组对应到可变参数列表上
-		cmder.cmd = exec.Command(strs[0], strs[1:]...)
-	} else { // example: ffmpeg
-		cmder.cmd = exec.Command(cmdStr)
-	}
-
+	fmt.Println("command line:")
+	fmt.Println(cmd, strings.Join(append([]string{}, arg...), " "))
 	if screenPrint {
 		cmder.cmd.Stdout = os.Stdout
 		cmder.cmd.Stderr = os.Stderr

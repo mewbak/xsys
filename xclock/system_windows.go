@@ -1,10 +1,8 @@
 package xclock
 
 import (
-	"github.com/PaulMaddox/w32"
-	"github.com/pkg/errors"
-	"time"
 	"os/exec"
+	"time"
 )
 
 // 下述实现只能在windows下编译通过，也可以通过syscall实现纯go的版本
@@ -12,6 +10,7 @@ import (
 // Get retrieves the current system time, either via syscall.Gettimeofday on Linux/Darwin
 // or via kernel32.GetSystemTime() on Windows. It then parses the result into a
 // standard time.Time struct.
+/*
 func GetSystemTime() (*time.Time, error) {
 
 	// Gets the system time from the kernel32 API
@@ -37,7 +36,7 @@ func SetSystemTime(input time.Time) error {
 
 	st := &w32.SYSTEMTIME{
 		Year:         uint16(input.Year()),
-		Month:        uint16(input.Month()),
+		YearMonth:    uint16(input.Month()),
 		DayOfWeek:    uint16(input.Weekday()),
 		Day:          uint16(input.Day()),
 		Hour:         uint16(input.Hour()),
@@ -52,7 +51,7 @@ func SetSystemTime(input time.Time) error {
 
 	return nil
 
-}
+}*/
 
 func SetSystemTimeROOT(t time.Time) error {
 	_, err := exec.Command("CMD", "/C", "DATE", t.Format("2006-01-02")).Output()

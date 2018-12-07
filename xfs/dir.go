@@ -7,12 +7,9 @@ import (
 	"path/filepath"
 	"runtime"
 	"strings"
-	"syscall"
 )
 
 func MakeDir(dir string) error {
-	mask := syscall.Umask(0)
-	defer syscall.Umask(mask)
 	return os.MkdirAll(dir, 0777)
 }
 

@@ -95,7 +95,7 @@ func (d *Date) UnmarshalJSON(b []byte) error {
 
 // yyyymmdd
 // Notice:
-// 如果你写成了fmt.Sprintf("%04d%02d%02d", d.Year, d.Month, d.Day)，编译也能通过
+// 如果你写成了fmt.Sprintf("%04d%02d%02d", d.Year, d.YearMonth, d.Day)，编译也能通过
 // 但是返回结果却是很大很大的数字，因为它们代表函数地址
 func (d *Date) StringYYYYMMDD() string {
 	return d.ToTime().Format("20060102")
