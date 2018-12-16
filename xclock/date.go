@@ -40,26 +40,26 @@ func NewDate(year, month, day int, tz time.Location) (Date, error) {
 	return Date(time.Date(year, time.Month(month), day, 0, 0, 0, 0, &tz)), nil
 }
 
-func (d *Date) Year() int {
-	return time.Time(*d).Year()
+func (d Date) Year() int {
+	return time.Time(d).Year()
 }
 
-func (d *Date) Month() time.Month {
-	return time.Time(*d).Month()
+func (d Date) Month() time.Month {
+	return time.Time(d).Month()
 }
 
-func (d *Date) Day() int {
-	return time.Time(*d).Day()
+func (d Date) Day() int {
+	return time.Time(d).Day()
 }
 
-func (d *Date) Equal(cmp Date) bool {
+func (d Date) Equal(cmp Date) bool {
 	srcTime := d.ToTime()
 	cmpTime := cmp.ToTime()
 	return srcTime.UTC().Unix() == cmpTime.UTC().Unix() &&
 		srcTime.UTC().UnixNano() == cmpTime.UTC().UnixNano()
 }
 
-func (d *Date) IsZero() bool {
+func (d Date) IsZero() bool {
 	return d.Equal(ZeroDate)
 }
 
@@ -97,23 +97,23 @@ func (d *Date) UnmarshalJSON(b []byte) error {
 // Notice:
 // 如果你写成了fmt.Sprintf("%04d%02d%02d", d.Year, d.YearMonth, d.Day)，编译也能通过
 // 但是返回结果却是很大很大的数字，因为它们代表函数地址
-func (d *Date) StringYYYYMMDD() string {
+func (d Date) StringYYYYMMDD() string {
 	return d.ToTime().Format("20060102")
 }
 
 // yyyy-mm-dd
-func (d *Date) StringYYYY_MM_DD() string {
+func (d Date) StringYYYY_MM_DD() string {
 	return d.ToTime().Format("2006-01-02")
 }
 
 // 以time.Time相同的格式输出字符串
-func (d *Date) StringTime() string {
+func (d Date) StringTime() string {
 	return d.ToTime().String()
 }
 
 
-func (d *Date) ToTime() time.Time {
-	return time.Time(*d)
+func (d Date) ToTime() time.Time {
+	return time.Time(d)
 }
 
 type DateRange struct {
@@ -139,7 +139,7 @@ func (dr *DateRange) UnmarshalJSON(b []byte) error {
 
 	// Remove '"'
 	s := string(b)
-	ErrDefault := errors.Errorf("Invalid json date range '%s'", s)
+	ErrDefault := errors.Errorf("invalid json date range '%s'", s)
 	if len(s) <= 1 {
 		return ErrDefault
 	}
@@ -158,6 +158,6 @@ func (dr *DateRange) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-func (dr *DateRange) IsZero() bool {
+func (dr DateRange) IsZero() bool {
 	return dr.Begin.IsZero() && dr.End.IsZero()
 }
